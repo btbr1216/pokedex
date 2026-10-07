@@ -1,8 +1,8 @@
 import json
 ## Open the JSON file of pokemon data
 pokedexfile = open("./pokedex.json", encoding="utf8")
-itemsfile = open("./types.json", encoding="utf8")
-movesfile = open("./types.json", encoding="utf8")
+itemsfile = open("./items.json", encoding="utf8")
+movesfile = open("./moves.json", encoding="utf8")
 typesfile = open("./types.json", encoding="utf8")
 ## create variable "data" that represents the enitre pokedex list
 pokedex = json.load(pokedexfile)
@@ -91,28 +91,58 @@ language = languagefunction(language)
 
 
 
-userinput = input("Input pokemon to find")
-timestorun = len(userinput)
+# userinput = input("Input pokemon to find")
+# timestorun = len(userinput)
 
-currentlist = []
+# currentlist = []
 
-for i in range(timestorun):
+# for i in range(timestorun):
 
-    if i == 0:
-        for _, v in enumerate(pokedex):
-            if v[1][language][i] == userinput[i]:
-                currentlist.append(v[1][language])
-        continue
+#     if i == 0:
+#         for _, v in enumerate(pokedex):
+#             if v["name"][language][i] == userinput[i]:
+#                 currentlist.append(v["name"][language])
+#         continue
 
-    newlist = []    
+#     newlist = []    
     
-    for _, v in enumerate(currentlist):
-        if v[1][language][i] == userinput[i]:
-            newlist.append(v[1][language])
+#     for _, v in enumerate(currentlist):
+#         if v[i] == userinput[i]:
+#             newlist.append(v)
 
-    currentlist = newlist
+#     currentlist = newlist
+#     if len(currentlist) == 0:
+#         break
 
-for _, v in enumerate(currentlist):
-    print(v)
+# for _, v in enumerate(currentlist):
+#     print(v)
+
+# if len(currentlist) == 0:
+#     print("No pokemon found with matching name.")
+
+
 
 #Based on user input, show all moves that a pokemon could learn based on their type. For example, if Charizard is fire/fyling, show all fire and flying moves. HINT import the moves.json file too!
+
+pokemontocheckmovesfor = input("Input pokemon to find out which moves they can learn")
+typeofthepokemon = 0
+
+for _, v in enumerate(pokedex):
+    if v["name"][language] == pokemontocheckmovesfor:
+        typeofthepokemon = v["type"]
+
+listofmoves = []
+
+if typeofthepokemon != 0:
+    for _, v in enumerate(moves):
+        for _, v2 in enumerate(typeofthepokemon):
+            if v["type"] == v2:
+                listofmoves.append(v["ename"])
+
+    print("Moves that your pokemon can learn:")
+    for _, v in enumerate(listofmoves):
+        print(v)
+
+else:
+    print("Cannot find pokemon.")
+
